@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\VideoRentalOnlineStore",
+    "\\VideoRentalOnlineStore\\Controllers",
+    "\\VideoRentalOnlineStore\\Database",
+    "\\VideoRentalOnlineStore\\Models",
+    "\\VideoRentalOnlineStore\\Models\\Entities",
+    "\\VideoRentalOnlineStore\\Models\\ViewModels",
+    "\\VideoRentalOnlineStore\\Services",
+    "\\VideoRentalOnlineStore\\Views",
+    "\\VideoRentalOnlineStore\\Views\\Movie"
+  ],
+  "SelectedNode": "\\VideoRentalOnlineStore.sln",
+  "PreviewInSolutionExplorer": false
+}

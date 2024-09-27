@@ -1,0 +1,32 @@
+﻿@model IEnumerable< VideoRentalOnlineStore.Models.ViewModels.MovieVM>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>IsAvailable</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>
+                    @movie.Title
+                </td>
+                <td>
+                    @movie.Genre
+                </td>
+                <td>
+                    @movie.IsAvailable.ToString()
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "MovieDetails", "Movie", new { id = movie.Id })
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

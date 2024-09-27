@@ -1,0 +1,12 @@
+﻿@model VideoRentalOnlineStore.Models.ViewModels.RentalDetailsVM
+
+<div class="card" style="width: 18rem;">
+
+    <div class="card-body">
+        <h5 class="card-title">Rental details</h5>
+        <p class="card-text"><strong>Movie Rented:</strong> @Model.MovieTitle</p>
+        <p class="card-text"><strong>Rented on:</strong> @Model.RentedOn.ToString("MMMM dd, yyyy")</p>
+        <p class="card-text"><strong>Returned on:</strong> @Model.ReturnedOn.ToString("MMMM dd, yyyy")</p>
+        <a href="@Url.Action("AllMovies", "Movie")" class="btn btn-primary">Go to Movie list</a>
+    </div>
+</div>

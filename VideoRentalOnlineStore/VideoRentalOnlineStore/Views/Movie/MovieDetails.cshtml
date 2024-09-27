@@ -1,0 +1,35 @@
+﻿@model VideoRentalOnlineStore.Models.ViewModels.MovieDetailsVM
+
+<div class="card" style="width: 18rem;">
+  
+    <div class="card-body">
+        <h5 class="card-title">Movie Title: @Model.Title</h5>
+        <p class="card-text"><strong>Genre:</strong> @Model.Genre</p>
+        <p class="card-text"><strong>Language:</strong> @Model.Language</p>
+        <p class="card-text"><strong>Release Date:</strong> @Model.ReleaseDate.ToString("MMMM dd, yyyy")</p>
+        <p class="card-text"><strong>Age Restriction:</strong> @Model.AgeRestriction+</p>
+        <p class="card-text"><strong>Length:</strong> @Model.Length.Hours @if (@Model.Length.Hours > 1)
+            {
+                <text>hours</text>
+            }
+            else
+            {
+                <text>hour</text>
+            } @Model.Length.Minutes minutes</p>
+        <p class="card-text"><strong>Available:</strong> @(Model.IsAvailable ? "Yes" : "No")</p>
+        @if(Model.IsAvailable == false )
+        {
+            <p class="card-text" style="color:red"><strong>Not Available</strong> </p>
+            <a href="@Url.Action("AllMovies", "Movie")" class="btn btn-primary">Go to Movie list</a>
+        }
+       
+        else
+        {
+            @using (Html.BeginForm("RentAMovie", "Movie", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model.Id) 
+                <button type="submit" class="btn btn-primary">Rent Movie</button>
+            }
+        }
+    </div>
+</div>
