@@ -3,8 +3,12 @@
     "",
     "\\VideoRentalOnlineStore",
     "\\VideoRentalOnlineStore\\VideoRentalOnlineStore",
-    "\\VideoRentalOnlineStore\\VideoRentalOnlineStore\\Services"
+    "\\VideoRentalOnlineStore\\VideoRentalOnlineStore\\Models",
+    "\\VideoRentalOnlineStore\\VideoRentalOnlineStore\\Models\\Entities",
+    "\\VideoRentalOnlineStore\\VideoRentalOnlineStore\\Services",
+    "\\VideoRentalOnlineStore\\VideoRentalOnlineStore\\Views",
+    "\\VideoRentalOnlineStore\\VideoRentalOnlineStore\\Views\\Movie"
   ],
-  "SelectedNode": "\\VideoRentalOnlineStore\\VideoRentalOnlineStore\\Services\\MovieServices.cs",
+  "SelectedNode": "\\VideoRentalOnlineStore\\VideoRentalOnlineStore\\Models\\Entities\\Movie.cs",
   "PreviewInSolutionExplorer": false
 }

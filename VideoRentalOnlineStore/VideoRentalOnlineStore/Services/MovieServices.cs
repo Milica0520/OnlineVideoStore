@@ -77,10 +77,10 @@ namespace VideoRentalOnlineStore.Services
             entity.Quantity--;
             if (entity.Quantity <= 0)
             {
-                entity.Quantity = 0;
+                
                 entity.IsAvailable = false;
             }
-            _context.Movies.Update(entity);
+           
             _context.SaveChanges();
 
             var rentalV = new RentalDetailsVM()
