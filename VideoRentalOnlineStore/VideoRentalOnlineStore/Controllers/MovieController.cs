@@ -45,5 +45,22 @@ namespace VideoRentalOnlineStore.Controllers
         }
 
 
+        [HttpGet("myRentals")]
+        public  IActionResult MyRentedMovies() {
+            var userId = 1;
+            var userRentedMovies = _movieService.RentedMoviesForUser(userId);
+            return View(userRentedMovies);
+        }
+
+        [HttpPost("returnMovie")]
+        public IActionResult ReturnAMovie(int id)
+        {
+
+            _movieService.ReturnMovie(id);
+
+            return RedirectToAction("MyRentedMovies", "Movie" );
+        }
+
+
     }
 }

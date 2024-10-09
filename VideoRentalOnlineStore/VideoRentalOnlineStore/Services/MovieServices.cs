@@ -16,8 +16,6 @@ namespace VideoRentalOnlineStore.Services
             _context = context;
         }
 
-
-
         public List<MovieVM> GetAllMovies()
         {
             List<MovieVM> moviesToView = _context.Movies.Select(m => new MovieVM()
@@ -56,7 +54,7 @@ namespace VideoRentalOnlineStore.Services
 
         }
 
-        public RentalDetailsVM RentMovie(int id)
+        public RentedMovieVM RentMovie(int id)
         {
             var entity = _context.Movies.FirstOrDefault(m => m.Id == id);
             if (entity == null)
@@ -70,7 +68,7 @@ namespace VideoRentalOnlineStore.Services
                 MovieId = entity.Id,
                 UserId = userId,
                 RentedOn = DateTime.Now,
-                ReturnedOn = DateTime.Now.AddDays(14),
+                ReturnedOn = DateTime.Now.AddDays(7),
             };
             _context.Rentals.Add(rental);
 
@@ -83,13 +81,65 @@ namespace VideoRentalOnlineStore.Services
            
             _context.SaveChanges();
 
-            var rentalV = new RentalDetailsVM()
+            var rentalV = new RentedMovieVM()
             {
+             
                 MovieTitle = entity.Title,
                 RentedOn = rental.RentedOn,
                 ReturnedOn = rental.ReturnedOn,
             };
+
             return rentalV;
         }
+
+
+        public List<RentedMovieVM> RentedMoviesForUser(int userId)
+        {
+       
+            List<Rental> userRentals = _context.Rentals.Where(r => r.UserId == userId).ToList();
+
+
+            List<RentedMovieVM>  userRentedMovies = new List<RentedMovieVM>();
+
+            foreach (var rental in userRentals)
+            {
+                var movie = _context.Movies.Where(m => m.Id == rental.MovieId).FirstOrDefault();
+
+                var rentedMovie = new RentedMovieVM()
+                {
+                    MovieTitle = movie.Title,
+                    RentedOn = rental.RentedOn,
+                    ReturnedOn = rental.ReturnedOn,
+                    MovieId = movie.Id, 
+                };
+
+                userRentedMovies.Add(rentedMovie);
+
+            }
+
+            return userRentedMovies;
+        }
+
+
+        public void ReturnMovie(int id)
+        {
+
+
+            var item = _context.Rentals.Where(r => r.MovieId == id).FirstOrDefault();
+            
+
+            if (item != null)
+            {
+                
+                _context.Rentals.Remove(item);
+                _context.SaveChanges(); 
+            }
+            var movie = _context.Movies.Where(movie => movie.Id == id).FirstOrDefault();
+
+            movie.Quantity++;
+
+           
+        }
+
     }
 }

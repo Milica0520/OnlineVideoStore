@@ -52,11 +52,43 @@ namespace VideoRentalOnlineStore.Database
                 {
                     Id = 1,
                     MovieId = 1,
-                    UserId  = 1,
+                    UserId = 1,
                     RentedOn = DateTime.Now,
-                    ReturnedOn= DateTime.Now.AddDays(7)
+                    ReturnedOn = DateTime.Now.AddDays(7)
                 }
             );
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 1,
+                    FullName = "Ana Marković",
+                    Age = 28,
+                    CardNumber = "1234-5678-9012-3456",
+                    CreatedOn = new DateTime(2023, 5, 12),
+                    IsSubscriptionExpired = false,
+                    SubscriptionType = SubscriptionType.Monthly,
+                },
+                new User
+                {
+                    Id = 2,
+                    FullName = "Ivan Petrović",
+                    Age = 35,
+                    CardNumber = "9876-5432-1098-7654",
+                    CreatedOn = new DateTime(2022, 8, 24),
+                    IsSubscriptionExpired = true,
+                    SubscriptionType = SubscriptionType.Yearly,
+                },
+                new User
+                {
+                    Id = 3,
+                    FullName = "Maja Nikolić",
+                    Age = 22,
+                    CardNumber = "4567-8901-2345-6789",
+                    CreatedOn = new DateTime(2024, 1, 15),
+                    IsSubscriptionExpired = false,
+                    SubscriptionType = SubscriptionType.Monthly
+                }
+          );
         }
     }
 }

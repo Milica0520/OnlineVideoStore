@@ -11,5 +11,7 @@ namespace VideoRentalOnlineStore.Models.Entities
         public DateTime CreatedOn { get; set; }
         public bool IsSubscriptionExpired { get; set; }
         public SubscriptionType SubscriptionType { get; set; } 
+
+        
     }
 }

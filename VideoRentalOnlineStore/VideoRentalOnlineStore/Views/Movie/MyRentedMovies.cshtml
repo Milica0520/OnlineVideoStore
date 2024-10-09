@@ -1,0 +1,42 @@
+﻿@model IEnumerable<VideoRentalOnlineStore.Models.ViewModels.RentedMovieVM>
+
+<!--User name from session-->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Rented On</th>
+            <th>To Return On</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>
+                    @movie.MovieTitle
+                </td>
+                <td>
+                    @movie.RentedOn
+                </td>
+                <td>
+                    @movie.ReturnedOn
+                </td>
+                <td>
+                <form asp-action="ReturnAMovie" method="post">
+                    <input type="hidden" name="id" value="@movie.MovieId" />
+                    <button type="submit" >Return</button>
+                </form>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<a href="@Url.Action("AllMovies", "Movie")" class="btn btn-primary">Go to Movie list</a>
+
+
+
+

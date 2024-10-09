@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VideoRentalOnlineStore.Database;
 
@@ -11,9 +12,10 @@ using VideoRentalOnlineStore.Database;
 namespace VideoRentalOnlineStore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241002194637_AddUsersInDbContext")]
+    partial class AddUsersInDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,8 +129,8 @@ namespace VideoRentalOnlineStore.Migrations
                         {
                             Id = 1,
                             MovieId = 1,
-                            RentedOn = new DateTime(2024, 10, 2, 22, 11, 20, 200, DateTimeKind.Local).AddTicks(5852),
-                            ReturnedOn = new DateTime(2024, 10, 9, 22, 11, 20, 200, DateTimeKind.Local).AddTicks(5921),
+                            RentedOn = new DateTime(2024, 10, 2, 21, 46, 36, 522, DateTimeKind.Local).AddTicks(4378),
+                            ReturnedOn = new DateTime(2024, 10, 9, 21, 46, 36, 522, DateTimeKind.Local).AddTicks(4449),
                             UserId = 1
                         });
                 });
@@ -164,38 +166,6 @@ namespace VideoRentalOnlineStore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Age = 28,
-                            CardNumber = "1234-5678-9012-3456",
-                            CreatedOn = new DateTime(2023, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FullName = "Ana Marković",
-                            IsSubscriptionExpired = false,
-                            SubscriptionType = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Age = 35,
-                            CardNumber = "9876-5432-1098-7654",
-                            CreatedOn = new DateTime(2022, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FullName = "Ivan Petrović",
-                            IsSubscriptionExpired = true,
-                            SubscriptionType = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Age = 22,
-                            CardNumber = "4567-8901-2345-6789",
-                            CreatedOn = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FullName = "Maja Nikolić",
-                            IsSubscriptionExpired = false,
-                            SubscriptionType = 0
-                        });
                 });
 #pragma warning restore 612, 618
         }
