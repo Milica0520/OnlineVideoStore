@@ -18,15 +18,29 @@ namespace VideoRentalOnlineStore.Services
         
         _context = context;
         }
+
        public UserLogInVM LogInUser(UserLogInVM userLogInVM)
         {
+            
+            var entity = _context.Users.Where(u => (u.FullName == userLogInVM.FirstName + " " + userLogInVM.LastName)
+            && (u.CardNumber == userLogInVM.CardNumber))
+                .FirstOrDefault();
 
+           if (entity == null)
+            {
+               return null;
+            }
 
+            var fullNameParts = entity.FullName.Split(' ');
 
+            var userLogIn = new UserLogInVM
+            {
+                FirstName = fullNameParts[0], 
+                LastName = fullNameParts[1], 
+                CardNumber = entity.CardNumber
+            };
 
-
-            return new UserLogInVM();
-
+            return userLogIn;
 
         }
 

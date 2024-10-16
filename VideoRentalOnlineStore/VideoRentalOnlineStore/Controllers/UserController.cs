@@ -10,25 +10,28 @@ namespace VideoRentalOnlineStore.Controllers
 
         private UserServices _userServices;
 
-        private UserController(UserServices userServices)
+        public UserController(UserServices userServices)
         {
-            _userServices = userServices ;
+            _userServices = userServices;
         }
-
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Index()
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult LogIn(UserLogInVM userLogInVM)
+
+        [HttpPost("logIn")]
+        public IActionResult LogIn([FromBody]UserLogInVM userLogInVM)
         {
-          var result = _userServices.LogInUser(userLogInVM);    
-            return View();
+            var result = _userServices.LogInUser(userLogInVM);
+            
+            if (result == null) {
+                
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
+            
         }
-
-
-        
     }
 }
