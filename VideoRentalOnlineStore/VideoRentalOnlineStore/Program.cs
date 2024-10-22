@@ -15,13 +15,14 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(10);
-    options.Cookie.HttpOnly = true;
+    options.IdleTimeout = TimeSpan.FromSeconds(3600);
+    options.Cookie.HttpOnly = false;
     options.Cookie.IsEssential = true;
 });
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<MovieServices>();
 builder.Services.AddScoped<UserServices>();
-
+builder.Services.AddMvc();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -43,6 +44,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=User}/{action=Index}");
+    pattern: "{controller=Home}/{action=Index}");
 
 app.Run();

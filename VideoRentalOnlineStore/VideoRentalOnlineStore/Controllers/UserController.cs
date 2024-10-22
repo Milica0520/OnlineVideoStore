@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Text.Json;
 using VideoRentalOnlineStore.Models.ViewModels;
 using VideoRentalOnlineStore.Services;
 
 namespace VideoRentalOnlineStore.Controllers
 {
+    [Route("user")]
     public class UserController : Controller
     {
 
@@ -15,23 +17,37 @@ namespace VideoRentalOnlineStore.Controllers
             _userServices = userServices;
         }
 
-        [HttpGet]
+        [HttpGet("login")]
         public IActionResult Index()
         {
             return View();
         }
 
-        [HttpPost("logIn")]
-        public IActionResult LogIn([FromBody]UserLogInVM userLogInVM)
+        [HttpPost("login")]
+  
+        public IActionResult LogIn(UserLogInVM userLogInVM)
         {
             var result = _userServices.LogInUser(userLogInVM);
-            
-            if (result == null) {
-                
-                return View();
+
+
+            if (result == null)
+            {
+
+                return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("Index", "Home");
-            
+
+            HttpContext.Session.SetString("user", JsonSerializer.Serialize(result));
+
+            return RedirectToAction("myRentals", "movie");
+
+        }
+
+        public IActionResult LogOut() 
+        {
+
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Home", "Index");
         }
     }
 }

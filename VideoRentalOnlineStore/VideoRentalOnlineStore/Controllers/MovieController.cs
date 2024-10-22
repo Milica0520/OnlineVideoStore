@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 using VideoRentalOnlineStore.Database;
 using VideoRentalOnlineStore.Models.Entities;
 using VideoRentalOnlineStore.Models.ViewModels;
@@ -38,7 +39,8 @@ namespace VideoRentalOnlineStore.Controllers
         [HttpPost("rent")]
         public IActionResult RentAMovie(int id)
         {
-            var rental = _movieService.RentMovie(id);
+            var userId = JsonSerializer.Deserialize<UserVM>(HttpContext.Session.GetString("user")).Id;
+            var rental = _movieService.RentMovie(id, userId);
 
             return View(rental);
 
@@ -47,7 +49,12 @@ namespace VideoRentalOnlineStore.Controllers
 
         [HttpGet("myRentals")]
         public  IActionResult MyRentedMovies() {
-            var userId = 1;
+
+            var userId = JsonSerializer.Deserialize<UserVM>(HttpContext.Session.GetString("user")).Id;
+            if (userId == 0)
+            {
+                throw new ArgumentException("You need to log in to rent a movie");
+            }
             var userRentedMovies = _movieService.RentedMoviesForUser(userId);
             return View(userRentedMovies);
         }

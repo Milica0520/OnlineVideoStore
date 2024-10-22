@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
+using System.Text.Json;
 using VideoRentalOnlineStore.Database;
 using VideoRentalOnlineStore.Models.Entities;
 using VideoRentalOnlineStore.Models.ViewModels;
@@ -10,10 +12,12 @@ namespace VideoRentalOnlineStore.Services
         public MovieServices() { }
 
         private ApplicationDbContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public MovieServices(ApplicationDbContext context)
+        public MovieServices(ApplicationDbContext context, IHttpContextAccessor _httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = _httpContextAccessor;
         }
 
         public List<MovieVM> GetAllMovies()
@@ -54,15 +58,15 @@ namespace VideoRentalOnlineStore.Services
 
         }
 
-        public RentedMovieVM RentMovie(int id)
+        public RentedMovieVM RentMovie(int id,int userId)
         {
+          
             var entity = _context.Movies.FirstOrDefault(m => m.Id == id);
             if (entity == null)
                 throw new Exception("Movie not found");
             if (entity.Quantity <= 0)
                 throw new Exception("Movie not available for rent.");
 
-            int userId = 1;
             var rental = new Rental()
             {
                 MovieId = entity.Id,
